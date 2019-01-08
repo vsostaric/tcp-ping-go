@@ -2,12 +2,10 @@ package catcher
 
 import (
 	"bufio"
-	"io"
 	"log"
 	"net"
 	"os"
 	"strconv"
-	"strings"
 )
 
 const (
@@ -44,32 +42,11 @@ func handler(conn net.Conn) {
 		w   = bufio.NewWriter(conn)
 	)
 
-ILOOP:
-	for {
-		n, err := r.Read(buf)
-		data := string(buf[:n])
+	n, _ := r.Read(buf)
+	data := string(buf[:n])
+	log.Println("Receive:", data)
 
-		switch err {
-		case io.EOF:
-			break ILOOP
-		case nil:
-			log.Println("Receive:", data)
-			if isTransportOver(data) {
-				break ILOOP
-			}
-
-		default:
-			log.Fatalf("Receive data failed:%s", err)
-			return
-		}
-
-	}
 	w.Write([]byte(Message))
 	w.Flush()
 	log.Printf("Send: %s", Message)
-}
-
-func isTransportOver(data string) (over bool) {
-	over = strings.HasSuffix(data, "\r\n\r\n")
-	return
 }

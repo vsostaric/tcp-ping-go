@@ -5,6 +5,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const (
@@ -31,6 +32,8 @@ func Pitch() {
 		buff := make([]byte, 1024)
 		n, _ := conn.Read(buff)
 		log.Printf("Receive: %s", buff[:n])
+
+		time.Sleep(10 * time.Second)
 	}
 
 }
