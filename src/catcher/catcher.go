@@ -1,4 +1,4 @@
-package main
+package catcher
 
 import (
 	"bufio"
@@ -11,11 +11,10 @@ import (
 )
 
 const (
-	Message       = "Pong"
+	Message = "Pong"
 )
 
-
-func main()  {
+func Catch() {
 	port := 8090
 	listen, err := net.Listen("tcp", ":"+strconv.Itoa(port))
 	defer listen.Close()

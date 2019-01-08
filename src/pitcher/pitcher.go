@@ -1,4 +1,4 @@
-package main
+package pitcher
 
 import (
 	"log"
@@ -11,7 +11,7 @@ const (
 	message = "Ping"
 )
 
-func main() {
+func Pitch() {
 
 	for {
 		addr := strings.Join([]string{"localhost", strconv.Itoa(8090)}, ":")
@@ -25,10 +25,12 @@ func main() {
 
 		conn.Write([]byte(message))
 		conn.Write([]byte("\r\n\r\n"))
+
 		log.Printf("Send: %s", message)
 
 		buff := make([]byte, 1024)
 		n, _ := conn.Read(buff)
 		log.Printf("Receive: %s", buff[:n])
 	}
+
 }
