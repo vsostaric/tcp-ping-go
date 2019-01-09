@@ -48,5 +48,4 @@ func handler(conn net.Conn) {
 
 	w.Write([]byte(Message))
 	w.Flush()
-	log.Printf("Send: %s", Message)
 }
