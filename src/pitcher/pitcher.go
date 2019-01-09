@@ -65,9 +65,7 @@ func createConnection() {
 		elapsed = time.Since(start)
 		fullReplyTime += elapsed
 
-		if elapsed > maximalTime {
-			maximalTime = elapsed
-		}
+		go checkMaxTime(elapsed)
 
 	}
 
@@ -75,4 +73,10 @@ func createConnection() {
 	speed = float64(messagesSent-messagesNotReplied) / fullReplyTime.Seconds()
 
 	go printState()
+}
+
+func checkMaxTime(elapsed time.Duration) {
+	if elapsed > maximalTime {
+		maximalTime = elapsed
+	}
 }
